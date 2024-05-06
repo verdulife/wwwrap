@@ -1,0 +1,32 @@
+---
+import Layout from "@/layouts/Layout.astro";
+
+const { pathname } = Astro.url;
+console.log(pathname);
+
+const url = "https://www.kncelados.com";
+---
+
+<Layout title="Wwrap | Developer tool">
+  <main class="flex h-screen w-full">
+    <section
+      class="flex grow items-center justify-center border-r border-gray-900 p-8"
+    >
+      <iframe
+        src={url}
+        width="1280"
+        title="Desktop wrap"
+        class="max-h-full max-w-full aspect-[9/5]"></iframe>
+    </section>
+
+    <section
+      class="flex grow items-center justify-center border-l border-gray-900 p-8"
+    >
+      <iframe
+        src={url}
+        width="390"
+        title="Mobile wrap"
+        class="max-h-full max-w-full aspect-[9/20]"></iframe>
+    </section>
+  </main>
+</Layout>

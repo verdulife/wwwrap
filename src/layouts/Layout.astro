@@ -1,0 +1,49 @@
+---
+import { ViewTransitions } from "astro:transitions";
+import Nav from "@/components/Nav.astro";
+
+const { title, description, image } = Astro.props;
+const baseURL = "https://www.wwwrap.dev";
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content={description} />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, minimum-scale=1.0, viewport-fit=cover"
+    />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <link rel="manifest" href="/manifest.json" crossorigin="use-credentials" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="Kncelados" />
+    <link rel="apple-touch-icon" type="image/png" href="/mobile.png" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <ViewTransitions />
+    <meta name="author" content="verdu | verdu@live.com" />
+    <meta name="robots" content="index, follow" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:url" content={baseURL} />
+    <meta property="og:image" content={image || `${baseURL}/logo-512.jpg`} />
+    <meta property="og:description" content={description} />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:site" content="@wwwrap" />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={image || `${baseURL}/card.jpg`} />
+    <meta name="twitter:image:alt" content={title} />
+  </head>
+
+  <body class="bg-zinc-900 text-gray-50">
+    <div class="flex min-h-screen flex-col overflow-hidden text-pretty">
+      <Nav />
+      <slot />
+    </div>
+  </body>
+</html>

@@ -1,0 +1,44 @@
+---
+import Layout from "@/layouts/Layout.astro";
+
+const { pathname } = Astro.url;
+
+const isLocal = pathname.includes("localhost") || pathname.includes("127");
+const PROTOCOL = isLocal ? "http://" : "https://";
+const URL = PROTOCOL + pathname;
+---
+
+<Layout title="Wwrap | Developer tool">
+  <main class="flex h-screen w-full">
+    <section
+      class="flex grow items-center justify-center border-r border-zinc-800 p-8"
+    >
+      <iframe
+        src={URL}
+        width="1280"
+        title="Desktop wrap"
+        class="aspect-[9/5] max-h-full max-w-full rounded-xl"
+      ></iframe>
+    </section>
+
+    <section
+      class="flex grow items-center justify-center p-8"
+    >
+      <iframe
+        src={URL}
+        width="390"
+        title="Mobile wrap"
+        class="aspect-[9/20] max-h-full max-w-full rounded-3xl"
+      ></iframe>
+    </section>
+  </main>
+</Layout>
+
+<style>
+  iframe {
+    box-shadow:
+      0 0 0 10px #000,
+      0 0 0 12px #333,
+      0 80px 80px -30px rgba(0, 0, 0, 0.8);
+  }
+</style>

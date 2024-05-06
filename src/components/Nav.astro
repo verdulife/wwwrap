@@ -1,0 +1,26 @@
+---
+import Logo from "./Logo.astro";
+---
+
+<header
+  class="fixed left-4 top-0 flex w-full justify-center [&>div]:hover:translate-y-1/2 [&>div]:hover:text-zinc-50 [&>div]:hover:delay-0"
+>
+  <div
+    class="flex -translate-y-1/2 items-center overflow-hidden rounded-full border border-zinc-700 bg-zinc-800 text-zinc-600 transition-all delay-1000"
+  >
+    <span class="px-4 py-2">
+      <Logo class="text-lg" />
+    </span>
+
+    <nav class="border-l border-l-zinc-700">
+      <form>
+        <input
+          type="url"
+          id="inputUrl"
+          placeholder="localhost:4321"
+          class="w-60 bg-transparent px-4 py-2 text-lg outline-none"
+        />
+      </form>
+    </nav>
+  </div>
+</header>
