@@ -1,79 +1,20 @@
 ---
-import Logo from "@/assets/Logo.astro";
-import Search from "@/assets/Search.astro";
 import Layout from "@/layouts/Layout.astro";
+import Toolbar from "@/components/Toolbar.astro";
+
+const { uri } = Astro.params;
 ---
 
 <Layout title="wwwrap | Dual display web design">
   <main
     class="flex h-screen w-full flex-col items-center justify-center gap-24"
   >
-    <h1 class="text-center text-6xl font-bold -mt-24">
-      Work in progress ⚡
+    <h1 class="-mt-24 text-center text-6xl font-bold">
+      Work in progress
       <br />
       but, feel free to try it!
     </h1>
 
-    <div
-      class="flex items-center overflow-hidden rounded-full border border-zinc-700 bg-zinc-800 text-zinc-50"
-    >
-      <a href="/" class="flex">
-        <span class="bg-yellow-200 py-4 pl-6 pr-4 text-black">
-          <Logo class="-mb-1 h-4" />
-        </span>
-      </a>
-
-      <nav class="border-l border-l-zinc-700">
-        <form id="formUrl" class="flex items-center pr-1">
-          <input
-            type="text"
-            id="inputUrl"
-            placeholder="localhost:4321"
-            class="min-w-96 max-w-2xl bg-transparent px-4 py-2 text-lg font-medium outline-none"
-          />
-
-          <button
-            class="rounded-full bg-zinc-500 p-2 transition-colors hover:bg-zinc-700"
-          >
-            <Search class="size-5" />
-          </button>
-        </form>
-      </nav>
-    </div>
+    <Toolbar uri={uri} />
   </main>
 </Layout>
-
-<script>
-  function init_inputHome() {
-    const formUrl = document.querySelector("#formUrl") as HTMLFormElement;
-    const inputUrl = document.querySelector("#inputUrl") as HTMLInputElement;
-    if (!formUrl || !inputUrl) return;
-
-    function resizeInput() {
-      inputUrl.style.width = inputUrl.value.length + "ch";
-    }
-
-    inputUrl.addEventListener("input", resizeInput);
-    resizeInput.call(inputUrl);
-
-    function goTo() {
-      const link = document.createElement("a");
-      const baseUrl = window.location.origin;
-      const uri = inputUrl.value
-        .replace("https://", "")
-        .replace("http://", "")
-        .replaceAll("/", "_");
-
-      link.href = `${baseUrl}/${uri}`;
-      link.click();
-    }
-
-    formUrl.addEventListener("submit", (ev) => {
-      ev.preventDefault();
-      goTo();
-    });
-  }
-
-  init_inputHome();
-  document.addEventListener("astro:after-swap", init_inputHome);
-</script>

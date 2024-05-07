@@ -1,0 +1,97 @@
+---
+import Logo from "@/assets/Logo.astro";
+import Search from "@/assets/Search.astro";
+import Switch from "@/assets/Switch.astro";
+
+const { uri } = Astro.props;
+const URL = uri ? uri.replaceAll("_", "/") : "";
+---
+
+<div
+  class="flex h-14 items-center overflow-hidden rounded-full border border-zinc-800 bg-zinc-950 shadow-xl"
+>
+  <a href="/" class="flex h-full items-center text-zinc-700 hover:text-zinc-50">
+    <span class="pl-6 pr-4">
+      <Logo class="-mb-1 h-4 transition-colors" />
+    </span>
+  </a>
+
+  <nav class="h-full border-l border-l-zinc-900">
+    <form id="formUrl" class="flex h-full items-center pl-4 pr-1 text-zinc-700">
+      <input
+        type="text"
+        id="inputUrl"
+        placeholder="localhost:4321"
+        value={URL}
+        class="h-full min-w-60 max-w-xl bg-transparent text-lg text-zinc-700 outline-none transition-colors placeholder:text-zinc-700 hover:text-zinc-50"
+        autocomplete="off"
+      />
+
+      <button
+        type="submit"
+        class="flex aspect-square h-full items-center justify-center border-l border-zinc-900 transition-colors hover:text-zinc-50"
+        title="Navigate"
+      >
+        <Search class="size-5" />
+      </button>
+
+      {
+        URL && (
+          <button
+            id="switcher"
+            type="button"
+            class="flex aspect-square h-full items-center justify-center border-l border-zinc-900 transition-colors hover:text-zinc-50"
+            title="Switch displays"
+          >
+            <Switch class="size-5" />
+          </button>
+        )
+      }
+    </form>
+  </nav>
+</div>
+
+<script>
+  function init_toolbar() {
+    const formUrl = document.querySelector("#formUrl") as HTMLFormElement;
+    const inputUrl = document.querySelector("#inputUrl") as HTMLInputElement;
+    const switcher = document.querySelector("#switcher") as HTMLButtonElement;
+    if (!formUrl || (!inputUrl && !switcher)) return;
+
+    function resizeInput() {
+      inputUrl.style.width = inputUrl.value.length + "ch";
+    }
+
+    inputUrl.addEventListener("input", resizeInput);
+    resizeInput.call(inputUrl);
+
+    function goTo() {
+      const link = document.createElement("a");
+      const baseUrl = window.location.origin;
+      const uri = inputUrl.value
+        .replace("https://", "")
+        .replace("http://", "")
+        .replaceAll("/", "_");
+
+      link.href = `${baseUrl}/${uri}`;
+      link.click();
+    }
+
+    formUrl.addEventListener("submit", (ev) => {
+      ev.preventDefault();
+      goTo();
+    });
+
+    function switchDisplays() {
+      const displays = document.querySelector("#displays");
+      if (!displays) return;
+
+      displays.classList.toggle("flex-row-reverse");
+    }
+
+    switcher.addEventListener("click", switchDisplays);
+  }
+
+  init_toolbar();
+  document.addEventListener("astro:after-swap", init_toolbar);
+</script>

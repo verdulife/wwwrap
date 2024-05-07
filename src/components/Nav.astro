@@ -1,7 +1,5 @@
 ---
-import Logo from "@/assets/Logo.astro";
-import Search from "@/assets/Search.astro";
-import Switch from "@/assets/Switch.astro";
+import Toolbar from "./Toolbar.astro";
 
 const { uri } = Astro.params;
 if (!uri) return;
@@ -10,89 +8,9 @@ const URL = uri.replaceAll("_", "/");
 ---
 
 <header
-  class="fixed left-4 top-0 flex w-full justify-center [&_div]:hover:translate-y-1/2 [&_div]:hover:text-zinc-50 [&_div]:hover:delay-0 [&_span]:hover:bg-yellow-200 [&_span]:hover:delay-0"
+  class="pointer-events-none fixed left-4 top-0 flex w-full justify-center"
 >
-  <div
-    class="flex -translate-y-1/2 items-center overflow-hidden rounded-full border border-zinc-700 bg-zinc-800 text-zinc-600 transition-all delay-1000"
-  >
-    <a href="/" class="flex">
-      <span class="py-4 pl-6 pr-4 text-black transition-colors delay-1000">
-        <Logo class="-mb-1 h-4" />
-      </span>
-    </a>
-
-    <nav class="border-l border-l-zinc-700">
-      <form id="formUrl" class="flex items-center pl-4 pr-1">
-        <input
-          type="text"
-          id="inputUrl"
-          placeholder="localhost:4321"
-          value={URL}
-          class="min-w-60 max-w-2xl bg-transparent py-2 text-lg outline-none"
-        />
-
-        <button
-          type="submit"
-          class="p-2 text-zinc-500 transition-colors hover:text-zinc-50"
-          title="Navigate"
-        >
-          <Search class="size-5" />
-        </button>
-
-        <button
-          id="switcher"
-          type="button"
-          class="p-2 text-zinc-500 transition-colors hover:text-zinc-50"
-          title="Switch displays"
-        >
-          <Switch class="size-5" />
-        </button>
-      </form>
-    </nav>
+  <div class="pointer-events-auto absolute -top-7 hover:pt-12 transition-all">
+    <Toolbar uri={uri}/>
   </div>
 </header>
-
-<script>
-  function init_inputHome() {
-    const formUrl = document.querySelector("#formUrl") as HTMLFormElement;
-    const inputUrl = document.querySelector("#inputUrl") as HTMLInputElement;
-    const switcher = document.querySelector("#switcher") as HTMLButtonElement;
-    if (!formUrl || !inputUrl || !switcher) return;
-
-    function resizeInput() {
-      inputUrl.style.width = inputUrl.value.length + "ch";
-    }
-
-    inputUrl.addEventListener("input", resizeInput);
-    resizeInput.call(inputUrl);
-
-    function goTo() {
-      const link = document.createElement("a");
-      const baseUrl = window.location.origin;
-      const uri = inputUrl.value
-        .replace("https://", "")
-        .replace("http://", "")
-        .replaceAll("/", "_");
-
-      link.href = `${baseUrl}/${uri}`;
-      link.click();
-    }
-
-    formUrl.addEventListener("submit", (ev) => {
-      ev.preventDefault();
-      goTo();
-    });
-
-    function switchDisplays() {
-      const displays = document.querySelector("#displays");
-      if (!displays) return;
-
-      displays.classList.toggle("flex-row-reverse");
-    }
-
-    switcher.addEventListener("click", switchDisplays);
-  }
-
-  init_inputHome();
-  document.addEventListener("astro:after-swap", init_inputHome);
-</script>

@@ -2,11 +2,7 @@
 import Layout from "@/layouts/Layout.astro";
 
 const { uri } = Astro.params;
-
-if (!uri) {
-  Astro.redirect("/", 303);
-  return;
-}
+if (!uri) return;
 
 const isLocal = uri.includes("localhost") || uri.includes("127");
 const PROTOCOL = isLocal ? "http://" : "https://";
