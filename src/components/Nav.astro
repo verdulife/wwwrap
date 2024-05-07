@@ -1,50 +1,51 @@
 ---
-import Logo from "./Logo.astro";
-const { uri } = Astro.params;
+import Logo from "@/assets/Logo.astro";
+import Search from "@/assets/Search.astro";
+import Switch from "@/assets/Switch.astro";
 
+const { uri } = Astro.params;
 if (!uri) return;
 
-const isLocal = uri.includes("localhost") || uri.includes("127");
-const PROTOCOL = isLocal ? "http://" : "https://";
-const URL = PROTOCOL + uri;
+const URL = uri.replaceAll("_", "/");
 ---
 
 <header
-  class="fixed left-4 top-0 flex w-full justify-center [&>div]:hover:translate-y-1/2 [&>div]:hover:text-zinc-50 [&>div]:hover:delay-0"
+  class="fixed left-4 top-0 flex w-full justify-center [&_div]:hover:translate-y-1/2 [&_div]:hover:text-zinc-50 [&_div]:hover:delay-0 [&_span]:hover:bg-yellow-200 [&_span]:hover:delay-0"
 >
   <div
     class="flex -translate-y-1/2 items-center overflow-hidden rounded-full border border-zinc-700 bg-zinc-800 text-zinc-600 transition-all delay-1000"
   >
-    <span class="px-4 py-2">
-      <Logo class="text-lg" />
-    </span>
+    <a href="/" class="flex">
+      <span class="py-4 pl-6 pr-4 text-black transition-colors delay-1000">
+        <Logo class="-mb-1 h-4" />
+      </span>
+    </a>
 
     <nav class="border-l border-l-zinc-700">
-      <form>
+      <form id="formUrl" class="flex items-center pl-4 pr-1">
         <input
-          type="url"
+          type="text"
           id="inputUrl"
           placeholder="localhost:4321"
-          value={URL || ""}
-          class="min-w-60 bg-transparent px-4 py-2 text-lg outline-none"
+          value={URL}
+          class="min-w-60 max-w-2xl bg-transparent py-2 text-lg outline-none"
         />
 
-        <button>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            class="icon icon-tabler icons-tabler-outline icon-tabler-search"
-            ><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path
-              d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0"></path><path
-              d="M21 21l-6 -6"></path></svg
-          >
+        <button
+          type="submit"
+          class="p-2 text-zinc-500 transition-colors hover:text-zinc-50"
+          title="Navigate"
+        >
+          <Search class="size-5" />
+        </button>
+
+        <button
+          id="switcher"
+          type="button"
+          class="p-2 text-zinc-500 transition-colors hover:text-zinc-50"
+          title="Switch displays"
+        >
+          <Switch class="size-5" />
         </button>
       </form>
     </nav>
@@ -52,11 +53,46 @@ const URL = PROTOCOL + uri;
 </header>
 
 <script>
-  const input = document.querySelector("#inputUrl");
-  input.addEventListener("input", resizeInput);
-  resizeInput.call(input);
+  function init_inputHome() {
+    const formUrl = document.querySelector("#formUrl") as HTMLFormElement;
+    const inputUrl = document.querySelector("#inputUrl") as HTMLInputElement;
+    const switcher = document.querySelector("#switcher") as HTMLButtonElement;
+    if (!formUrl || !inputUrl || !switcher) return;
 
-  function resizeInput() {
-    this.style.width = this.value.length + "ch";
+    function resizeInput() {
+      inputUrl.style.width = inputUrl.value.length + "ch";
+    }
+
+    inputUrl.addEventListener("input", resizeInput);
+    resizeInput.call(inputUrl);
+
+    function goTo() {
+      const link = document.createElement("a");
+      const baseUrl = window.location.origin;
+      const uri = inputUrl.value
+        .replace("https://", "")
+        .replace("http://", "")
+        .replaceAll("/", "_");
+
+      link.href = `${baseUrl}/${uri}`;
+      link.click();
+    }
+
+    formUrl.addEventListener("submit", (ev) => {
+      ev.preventDefault();
+      goTo();
+    });
+
+    function switchDisplays() {
+      const displays = document.querySelector("#displays");
+      if (!displays) return;
+
+      displays.classList.toggle("flex-row-reverse");
+    }
+
+    switcher.addEventListener("click", switchDisplays);
   }
+
+  init_inputHome();
+  document.addEventListener("astro:after-swap", init_inputHome);
 </script>

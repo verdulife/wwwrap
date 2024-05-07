@@ -10,14 +10,15 @@ if (!uri) {
 
 const isLocal = uri.includes("localhost") || uri.includes("127");
 const PROTOCOL = isLocal ? "http://" : "https://";
-const URL = PROTOCOL + uri;
+const URL = PROTOCOL + uri.replaceAll("_", "/");
 ---
 
-<Layout title="Wwrap | Developer tool">
-  <main class="flex h-screen w-full">
-    <section
-      class="flex w-full items-center justify-center border-r border-zinc-800"
-    >
+<Layout title={`wwwrap://${uri}`}>
+  <main
+    id="displays"
+    class:list={["flex h-screen w-full", false && "flex-row-reverse"]}
+  >
+    <section class="flex w-full">
       <iframe id="desktop" src={URL} title="Desktop wrap" class="size-full"
       ></iframe>
     </section>
