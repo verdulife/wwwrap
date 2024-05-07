@@ -1,5 +1,12 @@
 ---
 import Logo from "./Logo.astro";
+const { uri } = Astro.params;
+
+if (!uri) return;
+
+const isLocal = uri.includes("localhost") || uri.includes("127");
+const PROTOCOL = isLocal ? "http://" : "https://";
+const URL = PROTOCOL + uri;
 ---
 
 <header
@@ -18,9 +25,38 @@ import Logo from "./Logo.astro";
           type="url"
           id="inputUrl"
           placeholder="localhost:4321"
-          class="w-60 bg-transparent px-4 py-2 text-lg outline-none"
+          value={URL || ""}
+          class="min-w-60 bg-transparent px-4 py-2 text-lg outline-none"
         />
+
+        <button>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="icon icon-tabler icons-tabler-outline icon-tabler-search"
+            ><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path
+              d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0"></path><path
+              d="M21 21l-6 -6"></path></svg
+          >
+        </button>
       </form>
     </nav>
   </div>
 </header>
+
+<script>
+  const input = document.querySelector("#inputUrl");
+  input.addEventListener("input", resizeInput);
+  resizeInput.call(input);
+
+  function resizeInput() {
+    this.style.width = this.value.length + "ch";
+  }
+</script>
