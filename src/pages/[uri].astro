@@ -39,3 +39,42 @@ const URL = PROTOCOL + uri.replaceAll("_", "/");
       0 80px 80px -30px rgba(0, 0, 0, 0.8);
   }
 </style>
+
+<script>
+  function init_syncScroll() {
+    const desktop = document.querySelector("#desktop") as HTMLIFrameElement;
+    const mobile = document.querySelector("#mobile") as HTMLIFrameElement;
+    if (!desktop || !mobile) return;
+
+    const { contentWindow: desktopWindow } = desktop;
+    const { contentWindow: mobileWindow } = mobile;
+
+    let activeDesktop: boolean;
+    let activeMobile: boolean;
+
+    desktopWindow?.addEventListener("scroll", () => {
+      if (activeMobile) {
+        activeMobile = false;
+        return;
+      }
+
+      activeDesktop = true;
+      const { scrollY, scrollX } = desktopWindow;
+      mobileWindow?.scrollTo(scrollX, scrollY);
+    });
+
+    mobileWindow?.addEventListener("scroll", () => {
+      if (activeDesktop) {
+        activeDesktop = false;
+        return;
+      }
+
+      activeMobile = true;
+      const { scrollY, scrollX } = mobileWindow;
+      desktopWindow?.scrollTo(scrollX, scrollY);
+    });
+  }
+
+  init_syncScroll();
+  document.addEventListener("astro:after-swap", init_syncScroll);
+</script>
