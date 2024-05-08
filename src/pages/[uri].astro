@@ -40,8 +40,18 @@ const URL = PROTOCOL + uri.replaceAll("_", "/");
       0 80px 80px -30px rgba(0, 0, 0, 0.8);
   }
 </style>
+<!-- 
+<script src="./iframe.js" is:inline></script> -->
 
 <script>
+  const desktop = document.querySelector("#desktop") as HTMLIFrameElement;
+  desktop.contentWindow?.postMessage(
+    "The user is 'bob' and the password is 'secret'",
+    "http://localhost:4321"
+  );
+</script>
+
+<!-- <script>
   function init_syncScroll() {
     const desktop = document.querySelector("#desktop") as HTMLIFrameElement;
     const mobile = document.querySelector("#mobile") as HTMLIFrameElement;
@@ -78,4 +88,4 @@ const URL = PROTOCOL + uri.replaceAll("_", "/");
 
   init_syncScroll();
   document.addEventListener("astro:after-swap", init_syncScroll);
-</script>
+</script> -->
