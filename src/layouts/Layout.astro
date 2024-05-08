@@ -1,6 +1,6 @@
 ---
 import "@fontsource-variable/sora";
-import { ViewTransitions } from "astro:transitions";
+//import { ViewTransitions } from "astro:transitions";
 import Nav from "@/components/Nav.astro";
 
 const { title, description, image } = Astro.props;
@@ -11,7 +11,10 @@ const baseURL = "https://www.wwwrap.dev";
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <meta http-equiv="Content-Security-Policy" content="object-src 'self' wwwrap.dev" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="object-src 'self' wwwrap.dev"
+    />
     <meta name="description" content={description} />
     <meta
       name="viewport"
@@ -26,7 +29,7 @@ const baseURL = "https://www.wwwrap.dev";
     <link rel="apple-touch-icon" type="image/png" href="/mobile.png" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
-    <ViewTransitions />
+    <!-- <ViewTransitions /> -->
     <meta name="author" content="verdu | verdu@live.com" />
     <meta name="robots" content="index, follow" />
     <meta property="og:type" content="website" />

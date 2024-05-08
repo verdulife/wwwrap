@@ -42,6 +42,11 @@ const URL = PROTOCOL + uri.replaceAll("_", "/");
 </style>
 
 <script>
+  const desktop = document.querySelector("#desktop") as HTMLIFrameElement;
+  desktop.contentWindow?.postMessage("hello", "*");
+</script>
+
+<!-- <script>
   function init_syncScroll() {
     const desktop = document.querySelector("#desktop") as HTMLIFrameElement;
     const mobile = document.querySelector("#mobile") as HTMLIFrameElement;
@@ -78,4 +83,4 @@ const URL = PROTOCOL + uri.replaceAll("_", "/");
 
   init_syncScroll();
   document.addEventListener("astro:after-swap", init_syncScroll);
-</script>
+</script> -->

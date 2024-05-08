@@ -23,7 +23,7 @@ const URL = uri ? uri.replaceAll("_", "/") : "";
         id="inputUrl"
         placeholder="localhost:4321"
         value={URL}
-        class="h-full min-w-44 lg:min-w-60 max-w-xl bg-transparent text-lg text-zinc-700 outline-none transition-colors placeholder:text-zinc-700 hover:text-zinc-50"
+        class="h-full min-w-44 max-w-xl bg-transparent text-lg text-zinc-700 outline-none transition-colors placeholder:text-zinc-700 hover:text-zinc-50 lg:min-w-60"
         autocomplete="off"
       />
 
@@ -56,7 +56,7 @@ const URL = uri ? uri.replaceAll("_", "/") : "";
     const formUrl = document.querySelector("#formUrl") as HTMLFormElement;
     const inputUrl = document.querySelector("#inputUrl") as HTMLInputElement;
     const switcher = document.querySelector("#switcher") as HTMLButtonElement;
-    if (!formUrl || (!inputUrl && !switcher)) return;
+    if (!formUrl || !inputUrl) return;
 
     function resizeInput() {
       inputUrl.style.width = inputUrl.value.length + "ch";
@@ -89,7 +89,7 @@ const URL = uri ? uri.replaceAll("_", "/") : "";
       displays.classList.toggle("flex-row-reverse");
     }
 
-    switcher.addEventListener("click", switchDisplays);
+    switcher?.addEventListener("click", switchDisplays);
   }
 
   init_toolbar();

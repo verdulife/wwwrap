@@ -9,7 +9,7 @@ export default defineToolbarApp({
       link.href = "https://wwwrap.dev/localhost:4321";
       link.click();
 
-      app.changeAppState({ state: false });
+      // app.changeAppState({ state: false });
     });
   },
 });

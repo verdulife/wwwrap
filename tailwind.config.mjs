@@ -1,5 +1,4 @@
 import { fontFamily } from "tailwindcss/defaultTheme";
-import autoprefixer from "autoprefixer";
 
 /** @type {import('tailwindcss').Config} */
 export default {
@@ -13,7 +12,5 @@ export default {
 		},
 		extend: {},
 	},
-	plugins: [
-		autoprefixer()
-	],
+	plugins: [],
 }

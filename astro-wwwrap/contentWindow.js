@@ -1,9 +1,4 @@
-window.addEventListener(
-  "message",
-  (ev) => {
-    if (ev.origin !== "http://localhost:4321") return;
+window.addEventListener("message", (ev) => {
+  console.log(ev);
+});
 
-    window.addEventListener("scroll", () => console.log(window.scrollY))
-  },
-  false,
-);
