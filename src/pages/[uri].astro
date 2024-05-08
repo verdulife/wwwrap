@@ -25,7 +25,6 @@ const URL = PROTOCOL + uri.replaceAll("_", "/");
         src={URL}
         width="390"
         title="Mobile wrap"
-        seamless
         class="aspect-[9/20] max-h-full max-w-full rounded-3xl lg:max-w-none"
       ></iframe>
     </section>
@@ -42,11 +41,6 @@ const URL = PROTOCOL + uri.replaceAll("_", "/");
 </style>
 
 <script>
-  const desktop = document.querySelector("#desktop") as HTMLIFrameElement;
-  desktop.contentWindow?.postMessage("hello", "*");
-</script>
-
-<!-- <script>
   function init_syncScroll() {
     const desktop = document.querySelector("#desktop") as HTMLIFrameElement;
     const mobile = document.querySelector("#mobile") as HTMLIFrameElement;
@@ -83,4 +77,4 @@ const URL = PROTOCOL + uri.replaceAll("_", "/");
 
   init_syncScroll();
   document.addEventListener("astro:after-swap", init_syncScroll);
-</script> -->
+</script>
