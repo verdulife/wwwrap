@@ -18,10 +18,10 @@ export default () => ({
         entrypoint: "./astro-wwwrap/app.js",
       });
 
-      injectScript(
+      /* injectScript(
         "page",
         "import '@/../astro-wwwrap/contentWindow.js'; console.log('injected');"
-      );
+      ); */
 
       /* addMiddleware({
         entrypoint: "./astro-wwwrap/middleware.js",
