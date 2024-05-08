@@ -14,7 +14,7 @@ const URL = PROTOCOL + uri.replaceAll("_", "/");
     id="displays"
     class:list={["flex h-screen w-full", false && "flex-row-reverse"]}
   >
-    <section class="flex w-full">
+    <section class="hidden w-full lg:flex">
       <iframe id="desktop" src={URL} title="Desktop wrap" class="size-full"
       ></iframe>
     </section>
@@ -26,7 +26,8 @@ const URL = PROTOCOL + uri.replaceAll("_", "/");
         width="390"
         title="Mobile wrap"
         seamless
-        class="aspect-[9/20] max-h-full rounded-3xl"></iframe>
+        class="aspect-[9/20] max-h-full max-w-full rounded-3xl lg:max-w-none"
+      ></iframe>
     </section>
   </main>
 </Layout>
