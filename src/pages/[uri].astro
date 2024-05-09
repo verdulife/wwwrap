@@ -46,8 +46,10 @@ const URL = PROTOCOL + uri.replaceAll("_", "/");
     const mobile = document.querySelector("#mobile") as HTMLIFrameElement;
     if (!desktop || !mobile) return;
 
-    const { contentWindow: desktopWindow } = desktop;
-    const { contentWindow: mobileWindow } = mobile;
+    const { contentWindow: desktopWindow, contentDocument: desktopDocument } =
+      desktop;
+    const { contentWindow: mobileWindow, contentDocument: mobileDocument } =
+      mobile;
 
     let activeDesktop: boolean;
     let activeMobile: boolean;
@@ -58,9 +60,17 @@ const URL = PROTOCOL + uri.replaceAll("_", "/");
         return;
       }
 
-      activeDesktop = true;
       const { scrollY, scrollX } = desktopWindow;
       mobileWindow?.scrollTo(scrollX, scrollY);
+      activeDesktop = true;
+
+      function getScrollPercent() {
+        if (!desktop.contentDocument) return;
+        const h = desktop.contentDocument.documentElement;
+        return (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100;
+      }
+
+      console.log({ perc: getScrollPercent() });
     });
 
     mobileWindow?.addEventListener("scroll", () => {
@@ -69,9 +79,9 @@ const URL = PROTOCOL + uri.replaceAll("_", "/");
         return;
       }
 
-      activeMobile = true;
       const { scrollY, scrollX } = mobileWindow;
       desktopWindow?.scrollTo(scrollX, scrollY);
+      activeMobile = true;
     });
   }
 

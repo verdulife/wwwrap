@@ -10,18 +10,13 @@ const icon = /* html */`
 export default () => ({
   name: "wwwrap",
   hooks: {
-    "astro:config:setup": ({ addDevToolbarApp, addMiddleware }) => {
+    "astro:config:setup": ({ addDevToolbarApp }) => {
       addDevToolbarApp({
         id: "astro-wwwrap",
         name: "wwwrap",
         icon,
         entrypoint: "./astro-wwwrap/app.js",
       });
-
-      addMiddleware({
-        entrypoint: "./astro-wwwrap/middleware.js",
-        order: "post"
-      })
     },
   },
 });
