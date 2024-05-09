@@ -1,19 +1,29 @@
 import { defineToolbarApp } from "astro/toolbar";
 
 export default defineToolbarApp({
-  init(_, app) {
-    const { host, pathname } = window.location;
-    const link = document.createElement("a");
-    const isOff = pathname === "/";
+  init(canvas, app) {
+    const { host } = window.location;
+    const frame = document.createElement("iframe");
 
-    if (isOff) app.toggleState({ state: false });
-    else app.toggleState({ state: true });
+    frame.src = `/wwwrap/${host}`;
+    canvas.appendChild(frame);
 
-    app.onToggled(() => {
-      if (isOff) link.href = `http://${host}/wwwrap/${host}`;
-      else link.href = `http://${host}`;
+    frame.style.cssText = /* css */`
+      position: fixed;
+      width: 100vw;
+      height: 100vh;
+      border: none;
+      z-index: 9999; 
+    `;
 
-      link.click();
+    app.onToggled(({ state }) => {
+      if (!state) return;
+
+      const inner = frame.contentDocument.documentElement.querySelector("astro-dev-toolbar");
+
+      inner.style.cssText = /* css */`
+        display: none !important;
+      `;
     });
-  },
+  }
 });
