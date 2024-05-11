@@ -1,0 +1,41 @@
+---
+import Logo from "../assets/Logo.astro";
+import Switch from "../assets/Switch.astro";
+---
+
+<div
+  class="flex h-14 items-center overflow-hidden rounded-full border border-zinc-800 bg-zinc-950 shadow-xl"
+>
+  <span
+    class="flex h-full items-center pl-6 pr-4 text-zinc-700"
+  >
+    <Logo class="-mb-1 h-4 transition-colors" />
+  </span>
+
+  <nav class="h-full border-l border-l-zinc-900 text-zinc-700">
+    <button
+      id="switcher"
+      type="button"
+      class="flex aspect-square h-full items-center justify-center border-l border-zinc-900 transition-colors hover:text-zinc-50"
+      title="Switch displays"
+    >
+      <Switch class="size-5" />
+    </button>
+  </nav>
+</div>
+
+<script>
+  function switcher() {
+    const switcher = document.querySelector("#switcher") as HTMLButtonElement;
+    const displays = document.querySelector("#displays");
+
+    function switchDisplays() {
+      displays?.classList.toggle("flex-row-reverse");
+    }
+
+    switcher?.addEventListener("click", switchDisplays);
+  }
+
+  switcher();
+  document.addEventListener("astro:after-swap", switcher);
+</script>

@@ -10,12 +10,17 @@ const icon = /* html */`
 export default () => ({
   name: "wwwrap",
   hooks: {
-    "astro:config:setup": ({ addDevToolbarApp }) => {
+    "astro:config:setup": ({ addDevToolbarApp, injectRoute }) => {
       addDevToolbarApp({
         id: "astro-wwwrap",
         name: "wwwrap",
         icon,
         entrypoint: "./astro-wwwrap/app.js",
+      });
+
+      injectRoute({
+        pattern: "/wwwrap/[uri]",
+        entrypoint: "./astro-wwwrap/astro/wwwrap/[uri].astro"
       });
     },
   },

@@ -1,0 +1,14 @@
+---
+import Toolbar from "./Toolbar.astro";
+
+const { uri } = Astro.params;
+if (!uri) return;
+---
+
+<header
+  class="pointer-events-none fixed left-4 top-0 flex w-full justify-center"
+>
+  <div class="pointer-events-auto absolute -top-7 transition-all hover:pt-12">
+    <Toolbar uri={uri} />
+  </div>
+</header>

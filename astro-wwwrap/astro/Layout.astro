@@ -1,0 +1,24 @@
+---
+import Nav from "./components/Nav.astro";
+
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, minimum-scale=1.0, viewport-fit=cover"
+    />
+    <title>{title}</title>
+  </head>
+
+  <body class="bg-zinc-900 text-gray-50">
+    <div class="flex min-h-screen flex-col overflow-hidden text-pretty">
+      <Nav />
+      <slot />
+    </div>
+  </body>
+</html>
