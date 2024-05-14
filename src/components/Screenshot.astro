@@ -1,0 +1,32 @@
+---
+import "atropos/css";
+---
+
+<section
+  class="atropos-events flex h-screen w-full items-center justify-center"
+>
+  <div class="atropos screenshot aspect-video w-full max-w-7xl">
+    <div class="atropos-scale">
+      <div class="atropos-rotate overflow-hidden rounded-2xl bg-black">
+        <div class="atropos-inner">
+          <article class="flex size-full items-center justify-center">
+            <h1>atropos</h1>
+          </article>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import Atropos from "atropos";
+
+  Atropos({
+    el: ".screenshot",
+    eventsEl: ".atropos-events",
+    activeOffset: 0,
+    alwaysActive: true,
+    rotateXMax: 5,
+    rotateYMax: 5,
+  });
+</script>

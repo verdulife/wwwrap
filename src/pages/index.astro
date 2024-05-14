@@ -1,14 +1,17 @@
 ---
 import Layout from "@/layouts/Layout.astro";
 import Toolbar from "@/components/Toolbar.astro";
+import Screenshot from "@/components/Screenshot.astro";
 
 const { uri } = Astro.params;
 ---
 
 <Layout title="wwwrap | Dual display web design">
   <main
-    class="flex h-screen w-full flex-col items-center justify-center gap-24 p-4"
+    class="flex min-h-screen w-full flex-col items-center justify-center gap-24 p-4"
   >
+    <Screenshot />
+
     <h1 class="-mt-24 text-center text-3xl font-bold lg:text-6xl">
       Work in progress
       <br />
@@ -16,14 +19,5 @@ const { uri } = Astro.params;
     </h1>
 
     <Toolbar uri={uri} />
-  </main>
-  <main
-    class="flex h-screen w-full flex-col items-center justify-center gap-24"
-  >
-    <h1 class="-mt-24 text-center text-3xl font-bold lg:text-6xl">
-      Work in progress
-      <br />
-      but, feel free to try it!
-    </h1>
   </main>
 </Layout>
